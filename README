@@ -1,9 +1,154 @@
-touchscreen.js
+Touchscreen Toolkit Documentation
 
-Touchscreen Toolkit
+Overview
+
+The Touchscreen Toolkit generates a wizard-like interface for web forms with additional features for working with touchscreen devices.
+
+The Toolkit currently supports the following form input elements:
+
+   1. Text boxes
+   2. Drop-down menus (select)
+   3. Radio Buttons
+   4. Check boxes
+   5. List boxes (multiple selections not yet supported) 
+
+How to use the Touchscreen Toolkit
+
+   1. Create an HTML file with input elements
+   2. Include touchscreen.js and touchscreen.css
+   3. Add some attributes to control how the interface is displayed (ajaxURL, helpText and validationRegexp.) Read the attribute reference below for more information.
+
+Try It
 
 
-The Touchscreen toolkit transforms regular HTML forms into a touch-friendly wizard interfaces 
+We need your help. If you are a javascript, css, or html hacker and want to help us solve the health care crisis in Africa check out the code from git and start helping. Even if you are just a user, and not a hacker, let us know your experiences with it so that we can make it better.
 
-Check the Wiki for more information
-                              
+
+ 
+Touchscreen Toolkit Element Attribute Reference
+
+ 
+
+absoluteMax
+The maximum value allowed for this input that cannot be overriden by authorization
+e.g.: absoluteMax="200".
+
+
+absoluteMin
+The minimum value allowed for this input that cannot be overriden by authorization
+e.g.: absoluteMax="100".
+
+
+ajaxURL
+A relative URL returns a list of items to populate the options box for this element. The toolkit will append the value entered so far to the URL to filter the options (suggestions) after each toolkit keyboard press.
+e.g.: ajaxURL=”/cgi-bin/listOfNames.pl?search=”
+
+
+allowFreeText
+A boolean value. When set to "true", the toolkit does not restrict the value entered to to those suggested in the Options box. When omitted, false is assumed.
+e.g.: allowFreeText="true"
+
+
+condition
+
+A Javascript expression which enables the toolkit display this element when the expression returns true, or to skip it when false is returned.
+
+e.g.: condition=”$('city').value.toLowerCase() == 'unknown'”
+
+
+field_type
+
+The type of this element. When available, this helps the toolkit customise the page accordingly
+
+e.g.: field_type=”boolean”
+
+values: "string", "date", "boolean", "number"
+
+
+helpText
+Contains instructions for the user when interacting with this element
+e.g.: helpText=”Enter the applicant’s first name”
+
+
+max
+
+The maximum value allowed for this input.
+e.g.: max=”255”
+
+
+min
+
+The minimum valid value of this element.
+e.g.: min=”1”
+
+For dates, use "yyyy-mm-dd" format e.g.:  min="1996-09-26"
+
+(Values between min and absoluteMin and max and absoluteMax can be entered by user confirmation. Values outside of absolute ranges are not allowed.)
+
+ 
+
+
+optional
+
+Enables an element to have an empty value when set to true. False is assumed when this omitted.
+e.g.: optional=”true”
+
+
+singleButtonMode
+
+When set to true, every time a keyboard button is pressed, the value in the text box is overwritten. Used on the Day of Month page keyboard. False is assumed when this omitted.
+e.g.: singleButtonMode=”true”
+
+
+textCase
+
+Which case to be used when displaying values of this element. The default is Title Case (Capitalise first letter)
+e.g.: textCase="lower"
+
+values: "lower", "upper"
+
+tt_onLoad
+
+The toolkit will execute code in tt_onLoad attribute after creating all page UI controls although this could be before it receives AJAX results
+
+e.g.: tt_onLoad="$('keyboard').style='display:block;'"
+
+tt_pageStyleClass
+This attribute allows you to set class attributes for the page. Currently touch.css supports "Numeric" and "Numbers Only". This should probably replace field_type someday. Since we can apply multiple classes on an element this is more flexible and more DRY.
+
+
+validationJS
+
+Javascript code that returns true if the input is valid or false if not
+
+e.g.: validationJS="isThisValid();"
+
+
+validationMessage
+
+A message that is displayed when the value entered in this element is invalid.  Default value is displayed when omitted.
+e.g.: validationMessage=”Invalid Phone number: Please enter a 11-digit value”
+
+
+validationRegexp (disabled)
+A Perl Compatible Regular Expression that represents valid input for this element for "validation as you type". When specified, the toolkit validates the input after each toolkit keypress and only enables keyboard buttons that are valid.
+e.g.: validationRegexp=”^(\w)+$”
+
+This option has been disabled due to performance issues.  It also requires a server side partial regular expression implementation (source code for this is included in the svn download).
+
+
+validationRule
+
+A Perl Compatible Regular Expression that represents valid input for this element.
+e.g.: validationRegexp=”^(\w)+$”
+
+    
+
+
+Known Issues
+
+1. None
+
+Future Goals
+
+1. Replace native functions with JQuery for speed, simplicity and compatibility enhancements.
